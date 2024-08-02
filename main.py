@@ -52,6 +52,10 @@ def simulate(runs: int):
 
 def plot_win_rate(data):
     plt.plot(data)
+    plt.title("Monty Hall Problem - win rate when keeping initial choice")
+    plt.xlabel("Number of Trials")
+    plt.ylabel("Win rate %")
+
     plt.show()
 
 
