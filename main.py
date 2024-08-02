@@ -1,10 +1,21 @@
+import argparse
 import random
 import matplotlib.pyplot as plt
 
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Script to demonstrate and prove the Monty Hall problem")
+    parser.add_argument(
+        "--runs", "-r",
+        type=int,
+        default=1000,
+        help="Number of simulations to run"
+    )
+    return parser.parse_args()
+
+
 def pick_a_door() -> str:
-    doors = ["A", "B", "C"]
-    random_index = random.randrange(0, 3)
-    return doors[random_index]
+    return random.choice(["A", "B", "C"])
 
 
 def generate_winning_door() -> list:
@@ -25,42 +36,40 @@ def reveal_losing_door(choices: list, choice: str) -> str:
             return door
 
 
-def simulate(runs: int):
+def simulate(runs: int) -> list:
     iter = 0
     wins = 0
     attempts = 0
-    track_win_rate = []
+    win_rate_history = []
     while iter < runs:
         iter += 1
         choice = pick_a_door()
         choices = generate_winning_door()
         losing_door = reveal_losing_door(choices, choice)
-        print(f"You chose {choice}. Door {losing_door} has a goat behind it and you choose to stay")
 
         if choices[choice] == True:
             wins += 1
             attempts += 1
             win_rate = round((wins / attempts) * 100, 10)
-            track_win_rate.append(win_rate)
+            win_rate_history.append(win_rate)
         else:
             attempts += 1
             win_rate = round((wins / attempts) * 100, 10)
-            track_win_rate.append(win_rate)
-    
-    return track_win_rate
+            win_rate_history.append(win_rate)
+    return win_rate_history
 
 
-def plot_win_rate(data):
+def plot_win_rate(data: list):
     plt.plot(data)
     plt.title("Monty Hall Problem - win rate when keeping initial choice")
     plt.xlabel("Number of Trials")
     plt.ylabel("Win rate %")
-
     plt.show()
 
 
 def main():
-    data = simulate(runs=1000)
+    args = parse_args()
+    data = simulate(runs=args.runs)
     plot_win_rate(data)
 
 
