@@ -10,6 +10,6 @@ This script proves that it is disadvantageous to stay with your initial choice, 
 
 1. Ensure python3 is installed
 
-2. Clone this repository, `cd` into it, and install packages `pip3 install -r requirements.txt`
+2. Clone this repository, `cd` into it, and install packages `pip3 install -r requirements.txt` (you can install these packages in a virtual environment if you wish)
 
 3. Use script `python3 main.py`
