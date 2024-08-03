@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Script to demonstrate and prove the Monty Hall problem")
+    parser = argparse.ArgumentParser(description="A script to prove the Monty Hall problem using a Monte Carlo approach")
     parser.add_argument(
         "--runs", "-r",
         type=int,
@@ -14,10 +14,6 @@ def parse_args():
     return parser.parse_args()
 
 
-def pick_a_door() -> str:
-    return random.choice(["A", "B", "C"])
-
-
 def generate_winning_door() -> list:
     choices = {
         "A": False,
@@ -25,9 +21,13 @@ def generate_winning_door() -> list:
         "C": False
     }
 
-    random_index = random.choice(list(choices.keys()))
-    choices[random_index] = True
+    winning_door = random.choice(list(choices.keys()))
+    choices[winning_door] = True
     return choices
+
+
+def pick_a_door() -> str:
+    return random.choice(["A", "B", "C"])
 
 
 def simulate(runs: int) -> list:
@@ -37,8 +37,7 @@ def simulate(runs: int) -> list:
     while trials < runs:
         choices = generate_winning_door()
         choice = pick_a_door()
-
-        if choices[choice] == True:
+        if choices[choice]:
             wins += 1
 
         trials += 1

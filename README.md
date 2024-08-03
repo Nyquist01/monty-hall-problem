@@ -2,7 +2,7 @@
 
 > Suppose you're on a game show, and you're given the choice of three doors: Behind one door is a car; behind the others, goats. You pick a door, say No. 1, and the host, who knows what's behind the doors, opens another door, say No. 3, which has a goat. He then says to you, "Do you want to pick door No. 2?" Is it to your advantage to switch your choice?
 
-This script proves that it is disadvantageous to stay with your initial choice, you only have a 33.333% chance of winning:
+By utilizing a Monte Carlo simulation, we demonstrate that sticking with your initial choice in the Monty Hall problem results in a win rate of approximately 33.33%, highlighting that it is advantageous to switch from your original choice.
 
 ![stay](https://github.com/user-attachments/assets/2841068f-9ad1-4a94-99fd-750c597c549c)
 
