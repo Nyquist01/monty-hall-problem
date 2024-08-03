@@ -12,4 +12,4 @@ It's intuitive to believe that it doesn't matter if you choose to switch or stay
 
 2. Clone this repository, `cd` into it, and install packages `pip3 install -r requirements.txt` (you can install these packages in a virtual environment if you wish)
 
-3. Use script `python3 main.py`
+3. Use script `python3 main.py` or optionally `python3 main.py -r 100000` to adjust the number of simulation trials
