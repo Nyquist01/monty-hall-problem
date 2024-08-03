@@ -4,7 +4,7 @@
 
 By utilizing a Monte Carlo simulation, we demonstrate that sticking with your initial choice in the Monty Hall problem results in a win rate of approximately 33.33%, highlighting that it is advantageous to switch from your original choice.
 
-![stay](https://github.com/user-attachments/assets/2841068f-9ad1-4a94-99fd-750c597c549c)
+![monty_hall_fig](https://github.com/user-attachments/assets/bf00497b-a80e-43fa-bf29-503ac949de09)
 
 # usage
 
