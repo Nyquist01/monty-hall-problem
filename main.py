@@ -26,8 +26,8 @@ class MontyHallProblem():
         for simulation in range(1, self.simulations):
             winning_door = random.choice(["A", "B", "C"])
             initial_choice = random.choice(["A", "B", "C"])
-            remaining_door = {"A", "B", "C"} - {initial_choice, winning_door} # doors the host can choose to reveal
-            reveal_losing_door = random.choice(list(remaining_door)) # the door the host reveals
+            remaining_doors = {"A", "B", "C"} - {initial_choice, winning_door} # doors the host can choose to reveal
+            reveal_losing_door = random.choice(list(remaining_doors)) # the door the host reveals
 
             # stay scenario
             if initial_choice == winning_door:
@@ -45,7 +45,7 @@ class MontyHallProblem():
     def plot_win_rate(self):
         plt.plot(self.switch_data, label="switch")
         plt.plot(self.stay_data, label="stay")
-        plt.title("Monty Hall Problem - win rate for staying and switching strategies")
+        plt.title(f"Monty Hall Problem - win rate for staying and switching strategies over {self.simualtions} simulations")
         plt.xlabel("Number of Trials")
         plt.ylabel("Win rate %")
         plt.legend()
