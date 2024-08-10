@@ -14,73 +14,45 @@ def parse_args():
     return parser.parse_args()
 
 
-def generate_winning_door() -> dict:
-    choices = {
-        "A": False,
-        "B": False,
-        "C": False
-    }
+class MontyHallProblem():
+    def __init__(self, simulations: int):
+        self.simulations = simulations
+        self.switch_data = []
+        self.stay_data = []
 
-    winning_door = random.choice(list(choices.keys()))
-    choices[winning_door] = True
-    return choices
+    def simulate(self) -> list:
+        wins_stay = 0
+        wins_switch = 0
+        for simulation in range(1, self.simulations):
+            winning_door = random.choice(["A", "B", "C"])
+            initial_choice = random.choice(["A", "B", "C"])
+            remaining_door = {"A", "B", "C"} - {initial_choice, winning_door} # doors the host can choose to reveal
+            reveal_losing_door = random.choice(list(remaining_door)) # the door the host reveals
 
+            # stay scenario
+            if initial_choice == winning_door:
+                wins_stay += 1
+            # switch scenario
+            final_choice = ({"A", "B", "C"} - {initial_choice, reveal_losing_door}).pop()
+            if final_choice == winning_door:
+                wins_switch += 1
 
-def pick_a_door() -> str:
-    return random.choice(["A", "B", "C"])
+            self.stay_data.append(round((wins_stay / simulation) * 100, 10))
+            self.switch_data.append(round((wins_switch / simulation) * 100, 10))
+        
+        self.plot_win_rate()
 
-
-def reveal_losing_door(choices: dict, choice: str) -> str:
-    for door, value in choices.items():
-        if value is False and door != choice:
-            return door
-
-
-def switch_door(choices: dict, initial_choice: str, revealed_door: str) -> str:
-    for door in choices.keys():
-        if door != initial_choice and door != revealed_door:
-            return door
-
-
-def simulate(runs: int, switch: bool) -> list:
-    wins = 0
-    trials = 0
-    win_rate = []
-    while trials < runs:
-        choices = generate_winning_door()
-        initial_choice = pick_a_door()
-        revealed_door = reveal_losing_door(choices, initial_choice)
-
-        if switch:
-            final_choice = switch_door(choices, initial_choice, revealed_door)
-        else:
-            final_choice = initial_choice
-
-        if choices[final_choice]:
-            wins += 1
-
-        trials += 1
-        win_rate.append(round((wins / trials) * 100, 10))
-
-    return win_rate
-
-
-def plot_win_rate(switch_data: list, stay_data: list, ):
-    plt.plot(switch_data, label="switch")
-    plt.plot(stay_data, label="stay")
-    plt.title("Monty Hall Problem - win rate for staying and switching strategies")
-    plt.xlabel("Number of Trials")
-    plt.ylabel("Win rate %")
-    plt.legend()
-    plt.show()
-
-
-def main():
-    args = parse_args()
-    switch_data = simulate(runs=args.runs, switch=True)
-    stay_data = simulate(runs=args.runs, switch=False)
-    plot_win_rate(switch_data, stay_data)
+    def plot_win_rate(self):
+        plt.plot(self.switch_data, label="switch")
+        plt.plot(self.stay_data, label="stay")
+        plt.title("Monty Hall Problem - win rate for staying and switching strategies")
+        plt.xlabel("Number of Trials")
+        plt.ylabel("Win rate %")
+        plt.legend()
+        plt.show()
 
 
 if __name__ == "__main__":
-    main()
+    args = parse_args()
+    problem = MontyHallProblem(simulations=args.runs)
+    problem.simulate()
