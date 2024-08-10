@@ -45,7 +45,7 @@ class MontyHallProblem():
     def plot_win_rate(self):
         plt.plot(self.switch_data, label="switch")
         plt.plot(self.stay_data, label="stay")
-        plt.title(f"Monty Hall Problem - win rate for staying and switching strategies over {self.simualtions} simulations")
+        plt.title(f"Monty Hall Problem - win rate for staying and switching strategies over {self.simulations} simulations")
         plt.xlabel("Number of Trials")
         plt.ylabel("Win rate %")
         plt.legend()
